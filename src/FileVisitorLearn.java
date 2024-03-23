@@ -13,26 +13,26 @@ class MyFileVisitor implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-        System.out.println("Входим в директорию: " + dir);
+        System.out.println("Р’С…РѕРґРёРј РІ РґРёСЂРµРєС‚РѕСЂРёСЋ: " + dir);
         CreateFileJoker.createFiles(dir);
         return FileVisitResult.CONTINUE;
     }
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        System.out.println("Имя фйла: " + file.getFileName());
+        System.out.println("РРјСЏ С„Р°Р№Р»Р°: " + file.getFileName());
         return FileVisitResult.CONTINUE;
     }
 
     @Override
     public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-        System.out.println("Ошибка при посещении файла: " + file.getFileName() + ", ошибка: " + exc.getMessage());  // Include error message
+        System.out.println("РћС€РёР±РєР° РїСЂРё РїРѕСЃРµС‰РµРЅРёРё С„Р°Р№Р»Р°: " + file.getFileName() + ", Г®ГёГЁГЎГЄГ : " + exc.getMessage());  // Include error message
         return FileVisitResult.TERMINATE;
     }
 
     @Override
     public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-        System.out.println("Выходим из директории: " + dir);
+        System.out.println("Р’С‹С…РѕРґРёРј РёР· РґРёСЂРµРєС‚РѕСЂРёРё: " + dir);
         return FileVisitResult.CONTINUE;
     }
 }
@@ -50,7 +50,7 @@ class CreateFileJoker {
                         + "}";
                 Files.writeString(filePath, code);
             } catch (IOException e) {
-                System.err.println("Ошибка создания файла: " + filePath + ", ошибка: " + e.getMessage());
+                System.err.println("ГЋГёГЁГЎГЄГ  Г±Г®Г§Г¤Г Г­ГЁГї ГґГ Г©Г«Г : " + filePath + ", Г®ГёГЁГЎГЄГ : " + e.getMessage());
             }
         }
     }
