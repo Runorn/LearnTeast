@@ -50,7 +50,7 @@ class CreateFileJoker {
                         + "}";
                 Files.writeString(filePath, code);
             } catch (IOException e) {
-                System.err.println("Îøèáêà ñîçäàíèÿ ôàéëà: " + filePath + ", îøèáêà: " + e.getMessage());
+                System.err.println("Ошибка создания файла error : " + filePath + ",ошибка: " + e.getMessage());
             }
         }
     }
