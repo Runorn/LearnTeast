@@ -5,35 +5,31 @@ import java.nio.file.attribute.BasicFileAttributes;
 public class FileVisitorLearn {
     public static void main(String[] args) throws IOException {
         Path path = Paths.get("C:\\Users\\runor\\Desktop\\JavaJoker");
-        Files.walkFileTree(path, new MyFileVisitor());
-    }
-}
+        Files.walkFileTree(path, new FileVisitor<Path>() {
+            @Override
+            public FileVisitResult preVisitDirectory (Path dir, BasicFileAttributes attrs) throws IOException {
+                System.out.println("Входим в директорию: " + dir);
+                CreateFileJoker.createFiles(dir);
+                return FileVisitResult.CONTINUE;
+            }
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                System.out.println("Имя файла: " + file.getFileName());
+                return FileVisitResult.CONTINUE;
+            }
 
-class MyFileVisitor implements FileVisitor<Path> {
+            @Override
+            public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+                System.out.println("Ошибка при посещении файла: " + file.getFileName() + ", ошибка: " + exc.getMessage());
+                return FileVisitResult.TERMINATE;
+            }
 
-    @Override
-    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-        System.out.println("Входим в директорию: " + dir);
-        CreateFileJoker.createFiles(dir);
-        return FileVisitResult.CONTINUE;
-    }
-
-    @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        System.out.println("Имя файла: " + file.getFileName());
-        return FileVisitResult.CONTINUE;
-    }
-
-    @Override
-    public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-        System.out.println("Ошибка при посещении файла: " + file.getFileName() + ", îøèáêà: " + exc.getMessage());  // Include error message
-        return FileVisitResult.TERMINATE;
-    }
-
-    @Override
-    public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-        System.out.println("Выходим из директории: " + dir);
-        return FileVisitResult.CONTINUE;
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                System.out.println("Выходим из директории: " + dir);
+                return FileVisitResult.CONTINUE;
+            }
+        });
     }
 }
 
@@ -55,3 +51,4 @@ class CreateFileJoker {
         }
     }
 }
+
